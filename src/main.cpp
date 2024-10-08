@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "entity.h"
 
-void menuScreen(sf::RenderWindow &window);
+void menuScreen(sf::RenderWindow &windows, sf::Texture* bgTexture);
 void endScreen();
 void run();
 
@@ -80,18 +80,11 @@ int main(){
 	if(!enemyTexture1.loadFromFile(".//data//sprites//enemy3.png")){
 		std::cerr << "Enemy3 texture failed to load \n";
 	}
-
+	
+	menuScreen(mainWindow, &bgTexture);
 	//creating player object
-	PlayerEntity player(&playerTexture,playerStartPosition,SCALE);
+/*	PlayerEntity player(&playerTexture,playerStartPosition,SCALE);
 
-	sf::Font font;
-	font.loadFromFile(".//data//font//DS-DIGII.TTF");
-	sf::Text mytext;
-	mytext.setString("Test text");
-	mytext.setCharacterSize(75);
-	mytext.setFont(font);
-	mytext.setFillColor(sf::Color::Cyan);
-	mytext.setPosition(400,400);
 	
 
 	while(mainWindow.isOpen()){
@@ -107,6 +100,32 @@ int main(){
 		player.playerDraw(mainWindow);
 		mainWindow.draw(mytext);
 		mainWindow.display();
-	}
+	} */
 	return 0;
+}
+
+void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
+	sf::Font font;
+	font.loadFromFile(".//data//font//DS-DIGII.TTF");
+	sf::Text mytext;
+	mytext.setString("Test text");
+	mytext.setCharacterSize(75);
+	mytext.setFont(font);
+	mytext.setFillColor(sf::Color::Cyan);
+	mytext.setPosition(400,400);
+	sf::Sprite bgSprite(*bgTexture);
+
+	while(window.isOpen()){
+		sf::Event event;
+		while(window.pollEvent(event))
+		{
+			if(event.type == sf::Event::Closed){
+				window.close();
+			}
+		}
+		window.clear(sf::Color::Black);
+		window.draw(bgSprite);
+		window.draw(mytext);
+		window.display();
+	}
 }
