@@ -8,20 +8,27 @@ int main(){
 	const sf::Vector2f SCALE(6.0,6.0);
 	sf::Vector2f playerStartPosition(WIN_WIDTH / 2, WIN_HEIGHT - 32);
 	sf::IntRect playerRect(0,8,8,8);
+	enum state{0}; /* 0 = dead
 
 	sf::RenderWindow mainWindow(sf::VideoMode(WIN_WIDTH,WIN_HEIGHT), "Space Invaders", sf::Style::Close | sf::Style::Titlebar);
+	
+	//background
 	sf::Texture bgTexture;
-	if(!bgTexture.loadFromFile(".//data//bg.jpg")){
+	if(!bgTexture.loadFromFile(".//data//sprites//bg.jpg")){
 		std::cerr << "Failed to load bg \n";
-	}
+	} 
 	sf::Sprite bgSprite(bgTexture);
 	bgSprite.setScale(0.4,0.5);
+
+	//player texture loading
 	sf::Texture playerTexture;
-	if(!playerTexture.loadFromFile(".//data//player.png")){
+	if(!playerTexture.loadFromFile(".//data//sprites//player.png")){
 		std::cerr << "Player Texture failed to load \n";
 	}
+	//creating player object
 	PlayerEntity player(&playerTexture,playerStartPosition,SCALE);
-
+	
+	
 	/*
 	sf::Sprite player;
 	player.setTexture(tileset);

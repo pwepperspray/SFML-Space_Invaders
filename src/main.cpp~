@@ -11,13 +11,13 @@ int main(){
 
 	sf::RenderWindow mainWindow(sf::VideoMode(WIN_WIDTH,WIN_HEIGHT), "Space Invaders", sf::Style::Close | sf::Style::Titlebar);
 	sf::Texture bgTexture;
-	if(!bgTexture.loadFromFile(".//data//bg.jpg")){
+	if(!bgTexture.loadFromFile(".//data//sprites//bg.jpg")){
 		std::cerr << "Failed to load bg \n";
 	}
 	sf::Sprite bgSprite(bgTexture);
-	bgSprite.setScale(0.4,0.1);
+	bgSprite.setScale(0.4,0.5);
 	sf::Texture playerTexture;
-	if(!playerTexture.loadFromFile(".//data//player.png")){
+	if(!playerTexture.loadFromFile(".//data//sprites//player.png")){
 		std::cerr << "Player Texture failed to load \n";
 	}
 	PlayerEntity player(&playerTexture,playerStartPosition,SCALE);
