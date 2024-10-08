@@ -8,7 +8,7 @@ int main(){
 	const sf::Vector2f SCALE(6.0,6.0);
 	sf::Vector2f playerStartPosition(WIN_WIDTH / 2, WIN_HEIGHT - 32);
 	sf::IntRect playerRect(0,8,8,8);
-	enum state{0}; /* 0 = dead
+	enum level{1,2,3}; //enemy levels
 
 	sf::RenderWindow mainWindow(sf::VideoMode(WIN_WIDTH,WIN_HEIGHT), "Space Invaders", sf::Style::Close | sf::Style::Titlebar);
 	
