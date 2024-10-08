@@ -6,6 +6,7 @@
 class PlayerEntity{
 private:
 	int health = 3;
+	bool alive = true;
 //	sf::Texture playerTexture;
 //	sf::Texture playerProjectileTexture;
 	sf::Sprite playerSprite;
@@ -21,6 +22,7 @@ class EnemyEntity{
 private:
 	int health;
 	int level;
+	bool alive = true;
 	sf::Sprite enemySprite;
 	sf::Sprite enemyProjectileSprite;
 	sf::Vector2f m_enemyPos;
