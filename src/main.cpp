@@ -2,19 +2,20 @@
 #include <SFML/Graphics.hpp>
 #include "entity.h"
 
+
+const int WIN_WIDTH = 800;
+const int WIN_HEIGHT = 800;
+const int ENEMY_ROWS = 3;
+const int ENEMY_COLUMNS = 10;	
+const sf::Vector2f SCALE(6.0,6.0);
+sf::Vector2f playerStartPosition(WIN_WIDTH / 2, WIN_HEIGHT - 32);
+
 void menuScreen(sf::RenderWindow &windows, sf::Texture* bgTexture);
 void endScreen();
 void run();
 
 
 int main(){
-	const int WIN_WIDTH = 800;
-	const int WIN_HEIGHT = 800;
-	const int ENEMY_ROWS = 3;
-        const int ENEMY_COLUMNS = 10;	
-	const sf::Vector2f SCALE(6.0,6.0);
-
-	sf::Vector2f playerStartPosition(WIN_WIDTH / 2, WIN_HEIGHT - 32);
 
 	//creating a 2d array grid to store the position of aliens along with their difficulty
 	/*sample enemy grid
@@ -57,6 +58,57 @@ int main(){
 	if(!bgTexture.loadFromFile(".//data//sprites//bg.jpg")){
 		std::cerr << "Failed to load bg \n";
 	} 
+	return 0;
+}
+
+void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
+	sf::Font font;
+	font.loadFromFile(".//data//font//DS-DIGII.TTF");
+
+	sf::Text titleText, authorText, startText;
+	titleText.setString("Space Invaders");
+	titleText.setCharacterSize(75);
+	titleText.setFont(font);
+	titleText.setFillColor(sf::Color::Cyan);
+	titleText.setPosition((WIN_WIDTH / 2) - 230, 0);
+	
+	authorText.setString("created by pwepperspray");
+	authorText.setCharacterSize(25);
+	authorText.setFont(font);
+	authorText.setFillColor(sf::Color::Cyan);
+	authorText.setPosition((WIN_WIDTH / 2) - 138, 100);
+
+	startText.setString("Press Enter to Start");
+	startText.setCharacterSize(25);
+	startText.setFont(font);
+	startText.setFillColor(sf::Color::Cyan);
+	startText.setPosition((WIN_WIDTH / 2) - 105, WIN_HEIGHT / 2);
+
+	sf::Sprite bgSprite(*bgTexture);
+	
+	while(window.isOpen()){
+		sf::Event event;
+		while(window.pollEvent(event))
+		{
+			if(event.type == sf::Event::Closed){
+				window.close();
+			}
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			run(window, bgTexture);
+		}
+
+		window.clear(sf::Color::Black);
+		window.draw(bgSprite);
+		window.draw(titleText);
+		window.draw(authorText);
+		window.draw(startText);
+		window.display();
+	}
+}
+
+void run(sf::RenderWindow &window, sf::Texture* bgTexture){
+	
 	//loading background texture to sprite
 	sf::Sprite bgSprite(bgTexture);
 	bgSprite.setScale(0.4,0.5);
@@ -83,7 +135,7 @@ int main(){
 	
 	menuScreen(mainWindow, &bgTexture);
 	//creating player object
-/*	PlayerEntity player(&playerTexture,playerStartPosition,SCALE);
+	PlayerEntity player(&playerTexture,playerStartPosition,SCALE);
 
 	
 
@@ -95,37 +147,10 @@ int main(){
 				mainWindow.close();
 			}
 		}
-		mainWindow.clear(sf::Color::White);
-		mainWindow.draw(bgSprite);
-		player.playerDraw(mainWindow);
+		window.clear(sf::Color::White);
+		window.draw(bgSprite);
+		player.playerDraw(window);
 		mainWindow.draw(mytext);
 		mainWindow.display();
-	} */
-	return 0;
-}
-
-void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
-	sf::Font font;
-	font.loadFromFile(".//data//font//DS-DIGII.TTF");
-	sf::Text mytext;
-	mytext.setString("Test text");
-	mytext.setCharacterSize(75);
-	mytext.setFont(font);
-	mytext.setFillColor(sf::Color::Cyan);
-	mytext.setPosition(400,400);
-	sf::Sprite bgSprite(*bgTexture);
-
-	while(window.isOpen()){
-		sf::Event event;
-		while(window.pollEvent(event))
-		{
-			if(event.type == sf::Event::Closed){
-				window.close();
-			}
-		}
-		window.clear(sf::Color::Black);
-		window.draw(bgSprite);
-		window.draw(mytext);
-		window.display();
-	}
+	} 
 }
