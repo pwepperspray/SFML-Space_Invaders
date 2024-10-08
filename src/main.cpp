@@ -10,9 +10,9 @@ const int ENEMY_COLUMNS = 10;
 const sf::Vector2f SCALE(6.0,6.0);
 sf::Vector2f playerStartPosition(WIN_WIDTH / 2, WIN_HEIGHT - 32);
 
-void menuScreen(sf::RenderWindow &windows, sf::Texture* bgTexture);
+void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture);
 void endScreen();
-void run();
+void run(sf::RenderWindow &window, sf::Texture* bgTexture);
 
 
 int main(){
@@ -27,7 +27,7 @@ int main(){
 	 *easy = 2
 	 * */
 
-	int enemyGrid[ENEMY_ROWS][ENEMY_COLUMNS];
+	/*int enemyGrid[ENEMY_ROWS][ENEMY_COLUMNS];
 	for(int i = 0; i < ENEMY_ROWS; i++){
 		for(int j = 0; j < ENEMY_COLUMNS; j++){
 			if(i == 0){
@@ -40,7 +40,7 @@ int main(){
 				enemyGrid[i][j] = i;
 			}
 		}
-	}
+	}*/
 
 	/*
 	for(int i = 0; i < ENEMY_ROWS; i++){
@@ -58,6 +58,7 @@ int main(){
 	if(!bgTexture.loadFromFile(".//data//sprites//bg.jpg")){
 		std::cerr << "Failed to load bg \n";
 	} 
+	menuScreen(mainWindow, &bgTexture);
 	return 0;
 }
 
@@ -96,6 +97,7 @@ void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
 			run(window, bgTexture);
+			break;
 		}
 
 		window.clear(sf::Color::Black);
@@ -110,7 +112,7 @@ void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
 void run(sf::RenderWindow &window, sf::Texture* bgTexture){
 	
 	//loading background texture to sprite
-	sf::Sprite bgSprite(bgTexture);
+	sf::Sprite bgSprite(*bgTexture);
 	bgSprite.setScale(0.4,0.5);
 
 	//loading player texture
@@ -133,24 +135,20 @@ void run(sf::RenderWindow &window, sf::Texture* bgTexture){
 		std::cerr << "Enemy3 texture failed to load \n";
 	}
 	
-	menuScreen(mainWindow, &bgTexture);
 	//creating player object
 	PlayerEntity player(&playerTexture,playerStartPosition,SCALE);
 
-	
-
-	while(mainWindow.isOpen()){
+	while(window.isOpen()){
 		sf::Event event;
-		while(mainWindow.pollEvent(event))
+		while(window.pollEvent(event))
 		{
 			if(event.type == sf::Event::Closed){
-				mainWindow.close();
+				window.close();
 			}
 		}
-		window.clear(sf::Color::White);
+		window.clear(sf::Color::Black);
 		window.draw(bgSprite);
 		player.playerDraw(window);
-		mainWindow.draw(mytext);
-		mainWindow.display();
+		window.display();
 	} 
 }
