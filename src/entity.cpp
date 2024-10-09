@@ -38,7 +38,7 @@ Enemy::Enemy(sf::Texture* enemyTexture, int level, sf::Vector2f m_enemyPos, sf::
 	enemySprite.setOrigin(textureSize.x / 2, textureSize.y / 2);	
 }
 
-void EnemyEntity::enemyDraw(sf::RenderWindow &window){
+void Enemy::enemyDraw(sf::RenderWindow &window){
 	window.draw(enemySprite);
 }
 

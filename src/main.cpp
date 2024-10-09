@@ -10,10 +10,6 @@ const int ENEMY_COLUMNS = 10;
 const sf::Vector2f SCALE(6.0,6.0);
 sf::Vector2f playerStartPosition(WIN_WIDTH / 2, WIN_HEIGHT - 32);
 
-sf::Texture bgTexture;
-if(!bgTexture.loadFromFile(".//data//sprites//bg.jpg")){
-	std::cerr << "Failed to load bg \n";
-}
 
 void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture);
 void endScreen(sf::RenderWindow &window, sf::Texture* bgTexture);
@@ -22,8 +18,11 @@ void run(sf::RenderWindow &window, sf::Texture* bgTexture);
 
 int main(){
 	sf::RenderWindow mainWindow(sf::VideoMode(WIN_WIDTH,WIN_HEIGHT), "SFML-Space_Invaders", sf::Style::Close | sf::Style::Titlebar);
-
-	menuScreen(mainWindow, &bgTexture);
+	sf::Texture bgImage;
+	if(!bgImage.loadFromFile(".//data//sprites//bg.jpg")){
+		std::cerr << "Failed to load bg \n";
+	}	
+	menuScreen(mainWindow, &bgImage);
 	return 0;
 }
 
@@ -98,7 +97,7 @@ void run(sf::RenderWindow &window, sf::Texture* bgTexture){
 	}
 	
 	//creating entities
-	Player spaceship(&playerTexture,playerStartPosition,SCALE);
+	Player spaceShip(&playerTexture,playerStartPosition,SCALE);
 
 	while(window.isOpen()){
 		sf::Event event;
@@ -108,19 +107,17 @@ void run(sf::RenderWindow &window, sf::Texture* bgTexture){
 				window.close();
 			}
 		}
-		//player movement
+
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-			player.playerMove('R');
+			spaceShip.playerMove('R');
 		}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-			player.playerMove('L');
+			spaceShip.playerMove('L');
 		}else{
-			std::cout << "lol\n";
+			//soo empty soo sad
 		}
-
-
 		window.clear(sf::Color::Black);
 		window.draw(bgSprite);
-		player.playerDraw(window);
+		spaceShip.playerDraw(window);
 		window.display();
 	} 
 }

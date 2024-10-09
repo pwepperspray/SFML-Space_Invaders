@@ -4,7 +4,7 @@
 class Player{
 private:
 	int health = 3;
-	bool alive i= true;
+	bool alive = true;
 	sf::Sprite playerSprite;
 	sf::Vector2f m_playerPos;
 public:
@@ -20,7 +20,7 @@ private:
 	sf::Sprite enemySprite;
 	sf::Vector2f m_enemyPos;
 public:
-	EnemyEntity(sf::Texture* enemyTexture,int level, sf::Vector2f m_enemyPos, sf::Vector2f m_enemyScale);
+	Enemy(sf::Texture* enemyTexture,int level, sf::Vector2f m_enemyPos, sf::Vector2f m_enemyScale);
 	void enemyDraw(sf::RenderWindow &window);
 	void enemyMove(char direction);
 };
@@ -31,5 +31,4 @@ class projectile{
 		sf::Vector2f m_projectilePos;
 	public:
 		projectile(sf::Texture* projectileTexture, sf::Vector2f m_projectilePos);
-}
-
+};

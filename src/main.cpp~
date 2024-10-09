@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "entity.h"
-
 
 const int WIN_WIDTH = 800;
 const int WIN_HEIGHT = 800;
@@ -10,55 +10,19 @@ const int ENEMY_COLUMNS = 10;
 const sf::Vector2f SCALE(6.0,6.0);
 sf::Vector2f playerStartPosition(WIN_WIDTH / 2, WIN_HEIGHT - 32);
 
+
 void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture);
-void endScreen();
+void endScreen(sf::RenderWindow &window, sf::Texture* bgTexture);
 void run(sf::RenderWindow &window, sf::Texture* bgTexture);
 
 
 int main(){
-
-	//creating a 2d array grid to store the position of aliens along with their difficulty
-	/*sample enemy grid
-	 *[hard,hard,hard]
-	 *[medium,medium,medium]
-	 *[easy,easy,easy]
-	 *hard = 0
-	 *medium = 1 
-	 *easy = 2
-	 * */
-
-	/*int enemyGrid[ENEMY_ROWS][ENEMY_COLUMNS];
-	for(int i = 0; i < ENEMY_ROWS; i++){
-		for(int j = 0; j < ENEMY_COLUMNS; j++){
-			if(i == 0){
-			 	enemyGrid[i][j] = i;
-			}
-			else if(i == 1){
-				enemyGrid[i][j] = i;
-			}
-			else{
-				enemyGrid[i][j] = i;
-			}
-		}
-	}*/
-
-	/*
-	for(int i = 0; i < ENEMY_ROWS; i++){
-		for(int j = 0; j < ENEMY_COLUMNS; j++){
-			std::cout << " " << enemyGrid[i][j];
-		}
-		std::cout << "\n";
-	}
-	*/
-
 	sf::RenderWindow mainWindow(sf::VideoMode(WIN_WIDTH,WIN_HEIGHT), "SFML-Space_Invaders", sf::Style::Close | sf::Style::Titlebar);
-	
-	//loading background texture 
-	sf::Texture bgTexture;
-	if(!bgTexture.loadFromFile(".//data//sprites//bg.jpg")){
+	sf::Texture bgImage;
+	if(!bgImage.loadFromFile(".//data//sprites//bg.jpg")){
 		std::cerr << "Failed to load bg \n";
-	} 
-	menuScreen(mainWindow, &bgTexture);
+	}	
+	menuScreen(mainWindow, &bgImage);
 	return 0;
 }
 
@@ -96,8 +60,8 @@ void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
 			}
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			//break;
 			run(window, bgTexture);
-			break;
 		}
 
 		window.clear(sf::Color::Black);
@@ -110,18 +74,15 @@ void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
 }
 
 void run(sf::RenderWindow &window, sf::Texture* bgTexture){
-	
-	//loading background texture to sprite
+
 	sf::Sprite bgSprite(*bgTexture);
 	bgSprite.setScale(0.4,0.5);
 
-	//loading player texture
 	sf::Texture playerTexture;
 	if(!playerTexture.loadFromFile(".//data//sprites//player.png")){
 		std::cerr << "Player Texture failed to load \n";
 	}
 
-	//loading enemy texture
 	sf::Texture enemyTexture1;
 	if(!enemyTexture1.loadFromFile(".//data//sprites//enemy1.png")){
 		std::cerr << "Enemy1 texture failed to load \n";
@@ -135,8 +96,8 @@ void run(sf::RenderWindow &window, sf::Texture* bgTexture){
 		std::cerr << "Enemy3 texture failed to load \n";
 	}
 	
-	//creating player object
-	PlayerEntity player(&playerTexture,playerStartPosition,SCALE);
+	//creating entities
+	Player spaceShip(&playerTexture,playerStartPosition,SCALE);
 
 	while(window.isOpen()){
 		sf::Event event;
@@ -146,19 +107,17 @@ void run(sf::RenderWindow &window, sf::Texture* bgTexture){
 				window.close();
 			}
 		}
-		//player movement
+
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 			player.playerMove('R');
 		}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 			player.playerMove('L');
 		}else{
-			std::cout << "lol\n";
+			//soo empty soo sad
 		}
-
-
 		window.clear(sf::Color::Black);
 		window.draw(bgSprite);
-		player.playerDraw(window);
+		spaceShip.playerDraw(window);
 		window.display();
 	} 
 }
