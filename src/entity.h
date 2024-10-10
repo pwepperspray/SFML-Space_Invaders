@@ -18,7 +18,6 @@ private:
 	int level;
 	bool hit = false;
 	sf::Sprite enemySprite;
-	sf::Vector2f m_enemyPos;
 public:
 	Enemy(sf::Texture* enemyTexture,int level, sf::Vector2f m_enemyPos, sf::Vector2f m_enemyScale);
 	void enemyDraw(sf::RenderWindow &window);
