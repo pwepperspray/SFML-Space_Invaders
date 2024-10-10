@@ -34,7 +34,6 @@ void Player::getPlayerX(){
 
 
 Enemy::Enemy(sf::Texture* enemyTexture, int level, sf::Vector2f m_enemyPos, sf::Vector2f m_enemyScale){
-	this->m_enemyPos = m_enemyPos;
 	enemySprite.setTexture(*enemyTexture);
 	enemySprite.setPosition(m_enemyPos);
 	enemySprite.scale(m_enemyScale);
