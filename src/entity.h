@@ -6,7 +6,7 @@ private:
 	int health = 3;
 	bool alive = true;
 	sf::Sprite playerSprite;
-	sf::Vector2f m_playerPos;
+	//sf::Vector2f m_playerPos;
 public:
 	Player(sf::Texture* playerTexture, sf::Vector2f m_playerPos,sf::Vector2f m_playerScale);
 	void playerDraw(sf::RenderWindow &window);

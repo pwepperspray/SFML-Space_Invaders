@@ -2,7 +2,7 @@
 #include "entity.h"
 
 Player::Player(sf::Texture* playerTexture, sf::Vector2f m_playerPos, sf::Vector2f m_playerScale){
-	this->m_playerPos = m_playerPos;
+	//this->m_playerPos = m_playerPos;
 	playerSprite.setTexture(*playerTexture);
 	playerSprite.setPosition(m_playerPos);
 	playerSprite.scale(m_playerScale);
@@ -26,7 +26,11 @@ void Player::playerMove(char direction){
 			break;
 	}
 }
-
+/*
+void Player::getPlayerX(){
+	return m_playerPos.x;
+}
+*/
 
 
 Enemy::Enemy(sf::Texture* enemyTexture, int level, sf::Vector2f m_enemyPos, sf::Vector2f m_enemyScale){

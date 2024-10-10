@@ -22,11 +22,12 @@ int main(){
 	if(!bgImage.loadFromFile(".//data//sprites//bg.jpg")){
 		std::cerr << "Failed to load bg \n";
 	}	
-	menuScreen(mainWindow, &bgImage);
+	//menuScreen(mainWindow, &bgImage);
+	run(mainWindow, &bgImage);
 	return 0;
 }
 
-void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
+void menuScreen(sf::RenderWindow &window, sf::Texture* bgImage){
 	sf::Font font;
 	font.loadFromFile(".//data//font//DS-DIGII.TTF");
 
@@ -49,7 +50,7 @@ void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
 	startText.setFillColor(sf::Color::Cyan);
 	startText.setPosition((WIN_WIDTH / 2) - 105, WIN_HEIGHT / 2);
 
-	sf::Sprite bgSprite(*bgTexture);
+	sf::Sprite bgSprite(*bgImage);
 	
 	while(window.isOpen()){
 		sf::Event event;
@@ -61,7 +62,7 @@ void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
 			//break;
-			run(window, bgTexture);
+			run(window, bgImage);
 		}
 
 		window.clear(sf::Color::Black);
@@ -73,9 +74,9 @@ void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
 	}
 }
 
-void run(sf::RenderWindow &window, sf::Texture* bgTexture){
+void run(sf::RenderWindow &window, sf::Texture* bgImage){
 
-	sf::Sprite bgSprite(*bgTexture);
+	sf::Sprite bgSprite(*bgImage);
 	bgSprite.setScale(0.4,0.5);
 
 	sf::Texture playerTexture;
@@ -92,12 +93,15 @@ void run(sf::RenderWindow &window, sf::Texture* bgTexture){
 		std::cerr << "Enemy2 texture failed to load \n";
 	}
 	sf::Texture enemyTexture3;
-	if(!enemyTexture1.loadFromFile(".//data//sprites//enemy3.png")){
+	if(!enemyTexture3.loadFromFile(".//data//sprites//enemy3.png")){
 		std::cerr << "Enemy3 texture failed to load \n";
 	}
 	
 	//creating entities
 	Player spaceShip(&playerTexture,playerStartPosition,SCALE);
+	Enemy alien1(&enemyTexture1, 1,sf::Vector2f(80,260) ,SCALE);
+	Enemy alien2(&enemyTexture2, 2,sf::Vector2f(80,180) ,SCALE);
+	Enemy alien3(&enemyTexture3, 3,sf::Vector2f(80,100) ,SCALE);
 
 	while(window.isOpen()){
 		sf::Event event;
@@ -112,12 +116,18 @@ void run(sf::RenderWindow &window, sf::Texture* bgTexture){
 			spaceShip.playerMove('R');
 		}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 			spaceShip.playerMove('L');
+		}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+			std::cout << "paused\n";
 		}else{
-			//soo empty soo sad
+			//empty
 		}
+
 		window.clear(sf::Color::Black);
 		window.draw(bgSprite);
 		spaceShip.playerDraw(window);
+		alien1.enemyDraw(window);
+		alien2.enemyDraw(window);
+		alien3.enemyDraw(window);
 		window.display();
 	} 
 }
