@@ -61,7 +61,7 @@ void menuScreen(sf::RenderWindow &window, sf::Texture* bgImage){
 			}
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
-			//break;
+			//1break;
 			run(window, bgImage);
 		}
 

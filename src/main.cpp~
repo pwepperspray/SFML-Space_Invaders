@@ -27,7 +27,7 @@ int main(){
 	return 0;
 }
 
-void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
+void menuScreen(sf::RenderWindow &window, sf::Texture* bgImage){
 	sf::Font font;
 	font.loadFromFile(".//data//font//DS-DIGII.TTF");
 
@@ -50,7 +50,7 @@ void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
 	startText.setFillColor(sf::Color::Cyan);
 	startText.setPosition((WIN_WIDTH / 2) - 105, WIN_HEIGHT / 2);
 
-	sf::Sprite bgSprite(*bgTexture);
+	sf::Sprite bgSprite(*bgImage);
 	
 	while(window.isOpen()){
 		sf::Event event;
@@ -62,7 +62,7 @@ void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
 			//break;
-			run(window, bgTexture);
+			run(window, bgImage);
 		}
 
 		window.clear(sf::Color::Black);
@@ -74,9 +74,9 @@ void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture){
 	}
 }
 
-void run(sf::RenderWindow &window, sf::Texture* bgTexture){
+void run(sf::RenderWindow &window, sf::Texture* bgImage){
 
-	sf::Sprite bgSprite(*bgTexture);
+	sf::Sprite bgSprite(*bgImage);
 	bgSprite.setScale(0.4,0.5);
 
 	sf::Texture playerTexture;
