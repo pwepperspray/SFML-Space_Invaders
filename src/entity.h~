@@ -5,30 +5,30 @@ class Player{
 private:
 	int health = 3;
 	bool alive = true;
-	sf::Sprite playerSprite;
-	sf::Vector2f m_playerPos;
+	sf::Sprite pSprite;
 public:
-	Player(sf::Texture* playerTexture, sf::Vector2f m_playerPos,sf::Vector2f m_playerScale);
-	void playerDraw(sf::RenderWindow &window);
-	void playerMove(char direction);
+	Player(sf::Texture* pTexture, sf::Vector2f pPos);
+	void Draw(sf::RenderWindow &window);
+	void Move(char direction);
+public:
+	void phealth();
+	void kill();
+	void birth();
 };
 
 class Enemy{
 private:
-	int level;
 	bool hit = false;
-	sf::Sprite enemySprite;
-	sf::Vector2f m_enemyPos;
+	sf::Sprite eSprite;
 public:
-	Enemy(sf::Texture* enemyTexture,int level, sf::Vector2f m_enemyPos, sf::Vector2f m_enemyScale);
-	void enemyDraw(sf::RenderWindow &window);
-	void enemyMove(char direction);
+	Enemy(sf::Texture* eTexture, sf::Vector2f ePos);
+	void Draw(sf::RenderWindow &window);
+	void Move(char direction);
 };
 
 class projectile{
 	private:
-		sf::Sprite projectileSprite;
 		sf::Vector2f m_projectilePos;
 	public:
-		projectile(sf::Texture* projectileTexture, sf::Vector2f m_projectilePos);
+		projectile(sf::Vector2f m_projectilePos);
 };

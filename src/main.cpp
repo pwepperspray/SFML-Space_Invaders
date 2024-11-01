@@ -7,9 +7,8 @@ const int WIN_WIDTH = 800;
 const int WIN_HEIGHT = 800;
 const int ENEMY_ROWS = 3;
 const int ENEMY_COLUMNS = 10;	
-const sf::Vector2f SCALE(6.0,6.0);
+//const sf::Vector2f SCALE(6.0,6.0);
 sf::Vector2f playerStartPosition(WIN_WIDTH / 2, WIN_HEIGHT - 32);
-
 
 void menuScreen(sf::RenderWindow &window, sf::Texture* bgTexture);
 void endScreen(sf::RenderWindow &window, sf::Texture* bgTexture);
@@ -85,23 +84,23 @@ void run(sf::RenderWindow &window, sf::Texture* bgImage){
 	}
 
 	sf::Texture enemyTexture1;
-	if(!enemyTexture1.loadFromFile(".//data//sprites//enemy1.png")){
+	if(!enemyTexture1.loadFromFile(".//data//sprites//green.png")){
 		std::cerr << "Enemy1 texture failed to load \n";
 	}
 	sf::Texture enemyTexture2;
-	if(!enemyTexture2.loadFromFile(".//data//sprites//enemy2.png")){
+	if(!enemyTexture2.loadFromFile(".//data//sprites//yellow.png")){
 		std::cerr << "Enemy2 texture failed to load \n";
 	}
 	sf::Texture enemyTexture3;
-	if(!enemyTexture3.loadFromFile(".//data//sprites//enemy3.png")){
+	if(!enemyTexture3.loadFromFile(".//data//sprites//red.png")){
 		std::cerr << "Enemy3 texture failed to load \n";
 	}
 	
 	//creating entities
-	Player spaceShip(&playerTexture,playerStartPosition,SCALE);
-	Enemy alien1(&enemyTexture1, 1,sf::Vector2f(80,260) ,SCALE);
-	Enemy alien2(&enemyTexture2, 2,sf::Vector2f(80,180) ,SCALE);
-	Enemy alien3(&enemyTexture3, 3,sf::Vector2f(80,100) ,SCALE);
+	Player spaceShip(&playerTexture,playerStartPosition);
+	Enemy alien1(&enemyTexture1,sf::Vector2f(80,260));
+	Enemy alien2(&enemyTexture2,sf::Vector2f(80,180));
+	Enemy alien3(&enemyTexture3,sf::Vector2f(80,100));
 
 	while(window.isOpen()){
 		sf::Event event;
@@ -113,9 +112,9 @@ void run(sf::RenderWindow &window, sf::Texture* bgImage){
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-			spaceShip.playerMove('R');
+			spaceShip.Move('R');
 		}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-			spaceShip.playerMove('L');
+			spaceShip.Move('L');
 		}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
 			std::cout << "paused\n";
 		}else{
@@ -124,10 +123,10 @@ void run(sf::RenderWindow &window, sf::Texture* bgImage){
 
 		window.clear(sf::Color::Black);
 		window.draw(bgSprite);
-		spaceShip.playerDraw(window);
-		alien1.enemyDraw(window);
-		alien2.enemyDraw(window);
-		alien3.enemyDraw(window);
+		spaceShip.Draw(window);
+		alien1.Draw(window);
+		alien2.Draw(window);
+		alien3.Draw(window);
 		window.display();
 	} 
 }

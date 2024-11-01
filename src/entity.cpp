@@ -1,30 +1,39 @@
 
 #include "entity.h"
 
-Player::Player(sf::Texture* playerTexture, sf::Vector2f m_playerPos, sf::Vector2f m_playerScale){
-	//this->m_playerPos = m_playerPos;
-	playerSprite.setTexture(*playerTexture);
-	playerSprite.setPosition(m_playerPos);
-	playerSprite.scale(m_playerScale);
-	sf::Vector2u textureSize = playerSprite.getTexture()->getSize();
-	playerSprite.setOrigin(textureSize.x / 2, textureSize.y / 2);	
+Player::Player(sf::Texture* pTexture, sf::Vector2f pPos){
+	pSprite.setTexture(*pTexture);
+	pSprite.setPosition(pPos);
+	sf::Vector2u textureSize = pSprite.getTexture()->getSize();
+	pSprite.setOrigin(textureSize.x / 2, textureSize.y / 2);	
 }
 
-void Player::playerDraw(sf::RenderWindow &window){
-	window.draw(playerSprite);
+void Player::Draw(sf::RenderWindow &window){
+	window.draw(pSprite);
 }
 
-void Player::playerMove(char direction){
+void Player::Move(char direction){
 	switch(direction){
 		case 'L':
-			playerSprite.move(-1,0);
-			break;
+			if(pSprite.getPosition().x >= 50){	
+				pSprite.move(-0.5,0);
+				break;
+			}
+		
 		case 'R':
-			playerSprite.move(1,0);
-			break;
-		default:
-			break;
+			if(pSprite.getPosition().x <=800-50){
+				pSprite.move(0.5,0);
+				break;
+			}
 	}
+}
+
+void Player::getHealth(){
+	return health;
+}
+
+void setState(bool state){
+	alive = state;
 }
 /*
 void Player::getPlayerX(){
@@ -33,15 +42,14 @@ void Player::getPlayerX(){
 */
 
 
-Enemy::Enemy(sf::Texture* enemyTexture, int level, sf::Vector2f m_enemyPos, sf::Vector2f m_enemyScale){
-	enemySprite.setTexture(*enemyTexture);
-	enemySprite.setPosition(m_enemyPos);
-	enemySprite.scale(m_enemyScale);
-	sf::Vector2u textureSize = enemySprite.getTexture()->getSize();
-	enemySprite.setOrigin(textureSize.x / 2, textureSize.y / 2);	
+Enemy::Enemy(sf::Texture* eTexture, sf::Vector2f ePos){
+	eSprite.setTexture(*eTexture);
+	eSprite.setPosition(ePos);
+	sf::Vector2u textureSize = eSprite.getTexture()->getSize();
+	eSprite.setOrigin(textureSize.x / 2, textureSize.y / 2);	
 }
 
-void Enemy::enemyDraw(sf::RenderWindow &window){
-	window.draw(enemySprite);
+void Enemy::Draw(sf::RenderWindow &window){
+	window.draw(eSprite);
 }
 
