@@ -1,55 +1,65 @@
-
 #include "entity.h"
 
-Player::Player(sf::Texture* pTexture, sf::Vector2f pPos){
-	pSprite.setTexture(*pTexture);
-	pSprite.setPosition(pPos);
-	sf::Vector2u textureSize = pSprite.getTexture()->getSize();
-	pSprite.setOrigin(textureSize.x / 2, textureSize.y / 2);	
+Player::Player(sf::Texture* Texture, sf::Vector2f Pos){
+	Sprite.setTexture(*Texture);
+	Sprite.setPosition(Pos);
+	sf::Vector2u textureSize = Sprite.getTexture()->getSize();
+	Sprite.setOrigin(textureSize.x/2, textureSize.y/2);
+}
+void Player::draw(sf::RenderWindow* window){
+	window.draw(Sprite);
 }
 
-void Player::Draw(sf::RenderWindow &window){
-	window.draw(pSprite);
-}
-
-void Player::Move(char direction){
+void Player::move(char direction){
 	switch(direction){
 		case 'L':
-			if(pSprite.getPosition().x >= 50){	
-				pSprite.move(-0.5,0);
+			if(Spirte.getPosition().x >= 50){
+				Sprite.move(-0.5,0);
 				break;
-			}
-		
+			}	
 		case 'R':
-			if(pSprite.getPosition().x <=800-50){
-				pSprite.move(0.5,0);
+			if(Spirte.getPosition().x >= 50){
+				Sprite.move(0.5,0);
 				break;
 			}
 	}
 }
 
-void Player::getHealth(){
+int Player::getHealth(){
 	return health;
 }
 
-void setState(bool state){
+bool Player::isAlive(){
+	return alive;
+}
+
+void Player::setHealth(int n){
+	health = n;
+}
+
+void setIsAlive(bool state){
 	alive = state;
 }
-/*
-void Player::getPlayerX(){
-	return m_playerPos.x;
-}
-*/
 
+/**********************************************************************/
 
-Enemy::Enemy(sf::Texture* eTexture, sf::Vector2f ePos){
-	eSprite.setTexture(*eTexture);
-	eSprite.setPosition(ePos);
-	sf::Vector2u textureSize = eSprite.getTexture()->getSize();
-	eSprite.setOrigin(textureSize.x / 2, textureSize.y / 2);	
+Enemy::Enemy(sf::Texture* Texture, sf::Vector2f Pos){
+	Sprite.setTexture(*Texture);
+	Sprite.setPosition(Pos);
+	sf::Vector2u textureSize = Sprite.getTexture()->getSize();
+	Sprite.setOrigin(textureSize.x/2, textureSize.y/2);
 }
 
-void Enemy::Draw(sf::RenderWindow &window){
-	window.draw(eSprite);
+void Enemy::draw(sf::RenderWindow* window){
+	window.draw(Sprite);
 }
+
+bool Player::isAlive(){
+	return alive;
+}
+
+void setIsAlive(bool state){
+	alive = state;
+}
+
 

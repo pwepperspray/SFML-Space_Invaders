@@ -3,32 +3,38 @@
 
 class Player{
 private:
-	int health = 3;
+	unsigned short int lives = 3;
 	bool alive = true;
-	sf::Sprite pSprite;
+	sf::Sprite Sprite;
 public:
-	Player(sf::Texture* pTexture, sf::Vector2f pPos);
-	void Draw(sf::RenderWindow &window);
-	void Move(char direction);
+	Player(sf::Texture* Texture, sf::Vector2f Pos);
 public:
-	void phealth();
-	void kill();
-	void birth();
+	void draw(sf::RenderWindow &window);
+	void move(char direction);
+public:
+	int getHealth();
+	bool isAlive();
+	//getPos();
+public:
+	void setHealth(int n);
+	void setIsAlive(bool state);
 };
+
+/**********************************************************************/
 
 class Enemy{
 private:
-	bool hit = false;
-	sf::Sprite eSprite;
+	bool alive = true;
+	sf::Sprite Sprite;
 public:
-	Enemy(sf::Texture* eTexture, sf::Vector2f ePos);
-	void Draw(sf::RenderWindow &window);
-	void Move(char direction);
-};
-
-class projectile{
-	private:
-		sf::Vector2f m_projectilePos;
-	public:
-		projectile(sf::Vector2f m_projectilePos);
+	Enemy(sf::Texture* Texture, sf::Vector2f Pos);
+public:
+	void draw(sf::RenderWindow &window);
+//	void move(char direction);
+public:
+	bool isAlive();
+	//getPosX();
+	//getPosY();
+public:
+	void setIsAlive(bool state);
 };
