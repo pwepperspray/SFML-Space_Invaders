@@ -3,7 +3,7 @@
 
 class Player{
 private:
-	int health = 3;
+	unsigned short int lives = 3;
 	bool alive = true;
 	sf::Sprite pSprite;
 public:
@@ -11,13 +11,12 @@ public:
 	void Draw(sf::RenderWindow &window);
 	void Move(char direction);
 public:
-	void getHealth();
+	void getlives();
 	void setState();
 };
 
 class Enemy{
 private:
-	bool hit = false;
 	sf::Sprite eSprite;
 public:
 	Enemy(sf::Texture* eTexture, sf::Vector2f ePos);
